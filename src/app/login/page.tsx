@@ -44,9 +44,11 @@ export default function LoginPage() {
         <div className="card p-8">
           {/* Logo */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-light text-[#A8004A] tracking-tight mb-1">
-              <span className="font-normal">p</span>resente
-            </h1>
+            <img
+              src="/logo-conmovilidad.jpeg"
+              alt="ConMovilidad - Unimos caminos, movemos tus sueños"
+              className="mx-auto h-20 w-auto mb-2"
+            />
             <p className="text-[#A8004A] text-lg font-light">Marketplace</p>
           </div>
 

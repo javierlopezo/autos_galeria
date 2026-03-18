@@ -23,9 +23,11 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/marketplace" className="flex items-center gap-2">
-              <span className="text-2xl font-light text-[#A8004A] tracking-tight">
-                <span className="font-normal">p</span>resente
-              </span>
+              <img
+                src="/logo-conmovilidad.jpeg"
+                alt="ConMovilidad"
+                className="h-10 w-auto"
+              />
               <span className="text-sm text-[#A8004A] font-light">Marketplace</span>
             </Link>
           </div>
