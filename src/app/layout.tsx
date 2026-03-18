@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Presente - Marketplace",
-  description: "Compra y vende vehiculos de forma segura en Presente Marketplace",
+  title: "ConMovilidad - Marketplace",
+  description: "Compra y vende vehiculos de forma segura en ConMovilidad Marketplace",
 };
 
 export default function RootLayout({
