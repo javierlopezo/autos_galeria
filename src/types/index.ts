@@ -6,6 +6,8 @@ export interface Usuario {
   telefono: string | null;
   email: string | null;
   direccion: string | null;
+  empresa: string | null;
+  must_change_password: boolean;
   is_admin: boolean;
   created_at: string;
 }
@@ -75,6 +77,7 @@ export interface SessionData {
   cedula: string;
   nombre: string | null;
   is_admin: boolean;
+  must_change_password: boolean;
 }
 
 export interface RuntResponse {

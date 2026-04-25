@@ -45,12 +45,14 @@ export async function POST(request: NextRequest) {
       cedula: user.cedula,
       nombre: user.nombre,
       is_admin: user.is_admin,
+      must_change_password: user.must_change_password,
     });
 
     await setSessionCookie(token);
 
     return NextResponse.json({
       success: true,
+      primer_ingreso: user.must_change_password,
       user: {
         cedula: user.cedula,
         nombre: user.nombre,
