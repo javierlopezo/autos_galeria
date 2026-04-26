@@ -74,7 +74,7 @@ export default function CarruselAnuncios() {
             <img
               src={anuncio.imagen}
               alt={anuncio.titulo}
-              className="w-full h-40 sm:h-56 object-cover"
+              className="w-full aspect-[8/3] object-cover"
             />
           </a>
         ))}
