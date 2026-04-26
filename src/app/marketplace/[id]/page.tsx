@@ -179,7 +179,7 @@ export default function VehiculoDetailPage({ params }: { params: Promise<{ id: s
                   </button>
                 )}
                 <button
-                  onClick={() => contactWhatsApp(process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '573001234567', true)}
+                  onClick={() => contactWhatsApp(process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '573148037183', true)}
                   className="btn btn-outline w-full py-3"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

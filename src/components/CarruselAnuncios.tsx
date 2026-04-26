@@ -14,20 +14,20 @@ interface Anuncio {
 const ANUNCIOS: Anuncio[] = [
   {
     id: 1,
-    imagen: 'https://placehold.co/1200x300/A8004A/ffffff?text=Tu+anuncio+aqui',
-    titulo: 'Anuncio 1',
+    imagen: '/banner-1.png',
+    titulo: 'Leader Banner',
     enlace: 'https://wa.me/573148037183',
   },
   {
     id: 2,
-    imagen: 'https://placehold.co/1200x300/1a1a2e/ffffff?text=Tu+anuncio+aqui',
-    titulo: 'Anuncio 2',
+    imagen: '/banner-2.png',
+    titulo: 'Banner',
     enlace: 'https://wa.me/573148037183',
   },
   {
     id: 3,
-    imagen: 'https://placehold.co/1200x300/2d6a4f/ffffff?text=Tu+anuncio+aqui',
-    titulo: 'Anuncio 3',
+    imagen: '/banner-3.png',
+    titulo: 'Tu Próximo Vehículo Está Aquí',
     enlace: 'https://wa.me/573148037183',
   },
 ];
