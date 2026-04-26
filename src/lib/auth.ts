@@ -30,6 +30,7 @@ export async function getSession(): Promise<SessionData | null> {
       cedula: payload.cedula as string,
       nombre: payload.nombre as string | null,
       is_admin: payload.is_admin as boolean,
+      must_change_password: payload.must_change_password as boolean,
     };
   } catch {
     return null;

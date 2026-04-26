@@ -25,7 +25,7 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        router.push('/marketplace');
+        router.push(data.primer_ingreso ? '/completar-perfil' : '/marketplace');
         router.refresh();
       } else {
         setError(data.error || 'Error al iniciar sesion');
@@ -112,9 +112,17 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-500">
-            Contacte al administrador si no tiene cuenta
-          </p>
+          <div className="mt-6 text-center space-y-2">
+            <a
+              href="/recuperar-contrasena"
+              className="block text-sm text-[#A8004A] hover:underline"
+            >
+              ¿Olvidaste tu contrasena?
+            </a>
+            <p className="text-sm text-gray-500">
+              Contacte al administrador si no tiene cuenta
+            </p>
+          </div>
         </div>
       </div>
     </div>

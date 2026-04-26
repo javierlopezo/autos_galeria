@@ -6,7 +6,8 @@ const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || 'your-secret-key-change-in-production'
 );
 
-const publicPaths = ['/login', '/api/auth/login'];
+const publicPaths = ['/login', '/api/auth/login', '/recuperar-contrasena', '/api/auth/recuperar-contrasena', '/reset-password', '/api/auth/reset-password'];
+const completarPerfilPaths = ['/completar-perfil', '/api/auth/completar-perfil', '/api/auth/session', '/api/auth/logout'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -33,7 +34,12 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    await jwtVerify(token, JWT_SECRET);
+    const { payload } = await jwtVerify(token, JWT_SECRET);
+
+    if (payload.must_change_password && !completarPerfilPaths.some(p => pathname.startsWith(p))) {
+      return NextResponse.redirect(new URL('/completar-perfil', request.url));
+    }
+
     return NextResponse.next();
   } catch {
     // Invalid token, redirect to login

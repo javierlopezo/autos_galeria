@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Navbar from '@/components/Navbar';
 import VehiculoCard from '@/components/VehiculoCard';
+import CarruselAnuncios from '@/components/CarruselAnuncios';
 import { Vehiculo } from '@/types';
 
 // Mapeo de departamentos y ciudades de Colombia
@@ -172,6 +173,9 @@ export default function MarketplacePage() {
             Encuentra tu proximo vehiculo
           </p>
         </div>
+
+        {/* Carrusel de anuncios */}
+        <CarruselAnuncios />
 
         {/* Filtros */}
         <div className="card p-4 mb-8">
