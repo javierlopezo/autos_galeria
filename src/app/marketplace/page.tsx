@@ -232,23 +232,23 @@ export default function MarketplacePage() {
             <div>
               <label className="label">Precio minimo</label>
               <input
-                type="number"
-                value={filtroPrecioMin}
-                onChange={(e) => setFiltroPrecioMin(e.target.value)}
+                type="text"
+                inputMode="numeric"
+                value={filtroPrecioMin ? parseInt(filtroPrecioMin).toLocaleString('es-CO') : ''}
+                onChange={(e) => setFiltroPrecioMin(e.target.value.replace(/\D/g, ''))}
                 placeholder="$ Minimo"
                 className="input"
-                step="1000000"
               />
             </div>
             <div>
               <label className="label">Precio maximo</label>
               <input
-                type="number"
-                value={filtroPrecioMax}
-                onChange={(e) => setFiltroPrecioMax(e.target.value)}
+                type="text"
+                inputMode="numeric"
+                value={filtroPrecioMax ? parseInt(filtroPrecioMax).toLocaleString('es-CO') : ''}
+                onChange={(e) => setFiltroPrecioMax(e.target.value.replace(/\D/g, ''))}
                 placeholder="$ Maximo"
                 className="input"
-                step="1000000"
               />
             </div>
           </div>
