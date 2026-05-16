@@ -73,6 +73,17 @@ export default function VehiculoForm({ vehiculo, isEditing = false }: VehiculoFo
   const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [showMatriculaModal, setShowMatriculaModal] = useState(false);
+  const hideMatriculaTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMatriculaEnter = () => {
+    if (hideMatriculaTimeout.current) clearTimeout(hideMatriculaTimeout.current);
+    setShowMatriculaModal(true);
+  };
+  const handleMatriculaLeave = () => {
+    hideMatriculaTimeout.current = setTimeout(() => setShowMatriculaModal(false), 150);
+  };
+
   const [formData, setFormData] = useState({
     // Datos RUNT
     placa: vehiculo?.placa || '',
@@ -118,6 +129,11 @@ export default function VehiculoForm({ vehiculo, isEditing = false }: VehiculoFo
     precio: vehiculo?.precio || 0,
     descripcion: vehiculo?.descripcion || '',
   });
+
+  const handlePrecioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/\D/g, '');
+    setFormData(prev => ({ ...prev, precio: raw ? parseInt(raw) : 0 }));
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -348,7 +364,117 @@ export default function VehiculoForm({ vehiculo, isEditing = false }: VehiculoFo
         <>
           {/* Datos del vehiculo (RUNT) */}
           <div className="card p-6">
-            <h2 className="text-lg font-semibold mb-4">Datos del vehiculo</h2>
+            <div className="flex items-center gap-2 mb-4">
+              <h2 className="text-lg font-semibold">Datos del vehiculo</h2>
+              <div
+                className="relative"
+                onMouseEnter={handleMatriculaEnter}
+                onMouseLeave={handleMatriculaLeave}
+              >
+                <div className="w-6 h-6 rounded-full bg-[#A8004A] text-white text-xs font-bold flex items-center justify-center cursor-default select-none">
+                  ?
+                </div>
+                {showMatriculaModal && (
+                  <div
+                    className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-xl shadow-2xl border border-gray-200 w-[90vw] max-w-2xl max-h-[85vh] overflow-y-auto"
+                    onMouseEnter={handleMatriculaEnter}
+                    onMouseLeave={handleMatriculaLeave}
+                  >
+                    <div className="p-4 border-b">
+                      <h3 className="text-lg font-semibold text-gray-900">¿Donde encuentro esta informacion?</h3>
+                    </div>
+                    <div className="p-4">
+                      <p className="text-sm text-gray-600 mb-4">
+                        Los datos del vehiculo se encuentran en la <strong>Licencia de Transito</strong> (tarjeta de propiedad). A continuacion se indica donde ubicar cada campo:
+                      </p>
+                      <div className="border-4 border-gray-800 rounded-lg overflow-hidden text-xs font-mono bg-amber-50">
+                        <div className="bg-yellow-600 text-white px-3 py-2 flex items-center justify-between">
+                          <div>
+                            <div className="font-bold text-sm">REPUBLICA DE COLOMBIA</div>
+                            <div className="text-xs">MINISTERIO DE TRANSPORTE</div>
+                            <div className="font-bold">LICENCIA DE TRANSITO No.</div>
+                          </div>
+                          <div className="bg-orange-500 text-white rounded px-2 py-1 text-xs font-bold">RUNT</div>
+                        </div>
+                        <div className="p-2 space-y-1">
+                          <div className="grid grid-cols-4 gap-1">
+                            <div className="border border-gray-400 p-1 bg-white">
+                              <div className="text-gray-500 text-[10px]">PLACA</div>
+                              <div className="font-bold text-sm">ABC123</div>
+                            </div>
+                            <div className="border border-gray-400 p-1 bg-white">
+                              <div className="text-gray-500 text-[10px]">MARCA</div>
+                              <div className="font-bold">TOYOTA</div>
+                            </div>
+                            <div className="border-2 border-[#A8004A] p-1 bg-pink-50">
+                              <div className="text-[#A8004A] text-[10px] font-bold">LINEA ← aqui</div>
+                              <div className="font-bold text-[#A8004A]">FORTUNER</div>
+                            </div>
+                            <div className="border-2 border-[#A8004A] p-1 bg-pink-50">
+                              <div className="text-[#A8004A] text-[10px] font-bold">MODELO ← aqui</div>
+                              <div className="font-bold text-[#A8004A]">2023</div>
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-4 gap-1">
+                            <div className="border-2 border-[#A8004A] p-1 bg-pink-50">
+                              <div className="text-[#A8004A] text-[10px] font-bold">CILINDRAJE CC ← aqui</div>
+                              <div className="font-bold text-[#A8004A]">2694</div>
+                            </div>
+                            <div className="border-2 border-[#A8004A] p-1 bg-pink-50">
+                              <div className="text-[#A8004A] text-[10px] font-bold">COLOR ← aqui</div>
+                              <div className="font-bold text-[#A8004A]">BLANCO</div>
+                            </div>
+                            <div className="border-2 border-[#A8004A] p-1 bg-pink-50">
+                              <div className="text-[#A8004A] text-[10px] font-bold">SERVICIO ← aqui</div>
+                              <div className="font-bold text-[#A8004A]">PARTICULAR</div>
+                            </div>
+                            <div className="border border-gray-400 p-1 bg-white">
+                              <div className="text-gray-500 text-[10px]">CAPACIDAD KG</div>
+                              <div className="font-bold">5</div>
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-3 gap-1">
+                            <div className="border-2 border-[#A8004A] p-1 bg-pink-50">
+                              <div className="text-[#A8004A] text-[10px] font-bold">CLASE DE VEHICULO ← aqui</div>
+                              <div className="font-bold text-[#A8004A]">CAMIONETA</div>
+                            </div>
+                            <div className="border border-gray-400 p-1 bg-white">
+                              <div className="text-gray-500 text-[10px]">TIPO CARROCERIA</div>
+                              <div className="font-bold">CERRADA</div>
+                            </div>
+                            <div className="border-2 border-[#A8004A] p-1 bg-pink-50">
+                              <div className="text-[#A8004A] text-[10px] font-bold">COMBUSTIBLE ← aqui</div>
+                              <div className="font-bold text-[#A8004A]">GASOLINA</div>
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-2 gap-1">
+                            <div className="border border-gray-400 p-1 bg-white">
+                              <div className="text-gray-500 text-[10px]">NUMERO DE MOTOR</div>
+                              <div className="font-bold">2GD-XXXXXXX</div>
+                            </div>
+                            <div className="border border-gray-400 p-1 bg-white">
+                              <div className="text-gray-500 text-[10px]">NUMERO DE CHASIS</div>
+                              <div className="font-bold">MROXX000XXXXXXXX</div>
+                            </div>
+                          </div>
+                          <div className="border border-gray-400 p-1 bg-white">
+                            <div className="text-gray-500 text-[10px]">PROPIETARIO(S) Y NOMBRE(S)</div>
+                            <div className="font-bold">APELLIDO NOMBRE — C.C. XXXXXXXX</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-3 flex items-center gap-2 text-sm">
+                        <div className="w-4 h-4 border-2 border-[#A8004A] bg-pink-50 flex-shrink-0 rounded"></div>
+                        <span className="text-gray-600">Campos resaltados = informacion requerida en el formulario</span>
+                      </div>
+                      <div className="mt-3 bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
+                        <strong>Consejo:</strong> Si ingresa la placa y hace clic en <em>Consultar RUNT</em>, el sistema intenta llenar estos campos automaticamente.
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="label">Placa *</label>
@@ -529,7 +655,15 @@ export default function VehiculoForm({ vehiculo, isEditing = false }: VehiculoFo
                 </select>
               </div>
               <div>
-                <label className="label">SOAT vigente hasta</label>
+                <div className="flex items-center gap-1 mb-1">
+                  <span className="text-sm font-medium text-gray-700">SOAT vigente hasta</span>
+                  <div className="relative group">
+                    <div className="w-4 h-4 rounded-full bg-[#A8004A] text-white text-[10px] font-bold flex items-center justify-center cursor-default select-none">?</div>
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-900 text-white text-xs rounded px-2 py-1 whitespace-nowrap z-20 pointer-events-none">
+                      Seguro Obligatorio de Accidentes de Transito
+                    </div>
+                  </div>
+                </div>
                 <input
                   type="date"
                   name="soat_vigente"
@@ -539,7 +673,15 @@ export default function VehiculoForm({ vehiculo, isEditing = false }: VehiculoFo
                 />
               </div>
               <div>
-                <label className="label">RTM vigente hasta</label>
+                <div className="flex items-center gap-1 mb-1">
+                  <span className="text-sm font-medium text-gray-700">RTM vigente hasta</span>
+                  <div className="relative group">
+                    <div className="w-4 h-4 rounded-full bg-[#A8004A] text-white text-[10px] font-bold flex items-center justify-center cursor-default select-none">?</div>
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-900 text-white text-xs rounded px-2 py-1 whitespace-nowrap z-20 pointer-events-none">
+                      Revision Tecnico Mecanica
+                    </div>
+                  </div>
+                </div>
                 <input
                   type="date"
                   name="rtm_vigente"
@@ -609,13 +751,13 @@ export default function VehiculoForm({ vehiculo, isEditing = false }: VehiculoFo
               <div>
                 <label className="label">Precio (COP)</label>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                   name="precio"
-                  value={formData.precio}
-                  onChange={handleChange}
+                  value={formData.precio ? formData.precio.toLocaleString('es-CO') : ''}
+                  onChange={handlePrecioChange}
+                  placeholder="Ej: 50.000.000"
                   className="input"
-                  min="0"
-                  step="100000"
                 />
               </div>
             </div>
